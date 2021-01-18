@@ -10,12 +10,13 @@ Assembly is relatively straight-forward with biscuit joinery.  The design is som
 relatively easy to align the parts on all the critical dimensions just be pushing the boards together.
 Add dimensions are in millimeters.
 
-It is important that the router is highly accurate otherwise the jig will not fit together.  However, it is possible to overcome some inaccuracies
+It is important that the router makes highly accurate cuts otherwise the jig will not fit together.  However, it is possible to overcome some inaccuracies
 by compensating in the final positioning of the lasers.
 
 The design is parameterized in all key dimensions (see params.scad).  It is easy to change for different sized laser modules etc.
-For example, 19mm birch plywood is a great material choice, but if you want to use a different plywood, just change sheet_thickness
-in the params.scad file (be sure to measure the thickness carefully and convert to mm).
+
+19mm birch plywood is a great material choice.  However, if you want to use a different plywood, just change sheet_thickness
+in the params.scad file.  Be sure to measure the thickness accurately and convert to mm.
 
 Requires OpenSCAD and Python3.
 
