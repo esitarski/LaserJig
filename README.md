@@ -10,7 +10,7 @@ relatively easy to align the parts on all the critical dimensions just be pushin
 
 It is important that the router cuts are highly accurate - otherwise the jig will not go together.
 
-The design is parameterized in all key dimensions.  It is easy to change for different sized laser modules etc.
+The design is parameterized in all key dimensions (see params.scad).  It is easy to change for different sized laser modules etc.
 
 Requires OpenSCAD and Python3.
 

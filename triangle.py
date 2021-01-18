@@ -15,6 +15,7 @@ def x_func( C ):								# C is the angle at the top of the triangle.
 	return x, y, m
 	
 if __name__ == '__main__':
+	# Compute possible angles and height of the laser modules so that the laser line meets the lowest and highest points of the bottom bracket.
 	import svgwrite
 	dwg = svgwrite.Drawing( 'triangle.svg', profile='tiny' )
 	def xy( x, y ):
