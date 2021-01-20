@@ -1,4 +1,4 @@
-sheet_thickness=19;
+sheet_thickness=18;
 
 laser_width=20;
 laser_height=27;
