@@ -125,7 +125,7 @@ module lasers() {
             spacer_start = lasers_margin + (hb_75 - hb_85) + laser_width/2 + laser_clearance;
             spacer_end = lasers_length - lasers_margin - (bb_5-bb_0) - laser_width/2 - laser_clearance - sheet_thickness;
             spacer_inc = (spacer_end - spacer_start) / 4;
-            echo(lasers_length=lasers_length, spacer_start=spacer_start, spacer_end=spacer_end, spacer_inc=spacer_inc);
+            echo( lasers_length=lasers_length, spacer_start=spacer_start, spacer_end=spacer_end, spacer_inc=spacer_inc );
             for (i = [0:4]) {
                 translate( [spacer_start + i * spacer_inc,laser_clearance,sheet_thickness] )
                 cube( lasers_spacer );

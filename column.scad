@@ -33,6 +33,21 @@ module column() {
         ];
         echo( "3x", column_support=column_support );
         
+        // Compute the tabs to attach the supports to the base.
+        x_max = column_support[len(column_support)-1][0];
+        y_tab = column_support[len(column_support)-3][1] - sheet_thickness;
+        x_tab = x_max - column_support[len(column_support)-3][0];
+        a_tab = atan( y_tab / x_tab );
+        
+        col_suppport_tab = [
+            [0,0],
+            [0,tab_height],
+            [x_max - (tab_height - sheet_thickness)/tan(a_tab),tab_height],
+            [x_max,sheet_thickness],
+            [x_max,0],
+        ];
+        echo( "3x", col_suppport_tab=col_suppport_tab );
+        
         column_support_spacing = (column_width - sheet_thickness) / 2;
         translate( [column_x, sheet_thickness, 0] ) {
             for( i = [0:2] ) {
@@ -40,6 +55,11 @@ module column() {
                 rotate([90,0,90])
                 linear_extrude(height=sheet_thickness)
                 polygon(points=column_support);
+
+                translate([i*column_support_spacing+(i==2?-sheet_thickness:sheet_thickness),0,0])
+                rotate([90,0,90])
+                linear_extrude(height=sheet_thickness)
+                polygon(points=col_suppport_tab);
             }
         }
         

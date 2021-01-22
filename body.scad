@@ -28,15 +28,31 @@ module body() {
     // back braces
     // hb braces
     back_brace_hb_thickness = channel_offset/4;
+    back_brace_hb_y1 = wheel_height*2/3;
+    back_brace_hb_y2 = wheel_height*1/4;
     back_brace_hb = [
         [0,0],
         [0,wheel_height-100+20],
-        [back_brace_hb_thickness,wheel_height*2/3],
-        [back_brace_hb_thickness,wheel_height*1/4],
+        [back_brace_hb_thickness,back_brace_hb_y1],
+        [back_brace_hb_thickness,back_brace_hb_y2],
         [channel_offset-channel_thickness, sheet_thickness],
         [channel_offset-channel_thickness, 0],
     ];
     echo( "2x", back_brace_hb=back_brace_hb );
+
+    x_max_hb = back_brace_hb[len(back_brace_hb)-1][0];
+    y_tab_hb = back_brace_hb[len(back_brace_hb)-3][1] - sheet_thickness;
+    x_tab_hb = x_max_hb - back_brace_hb[len(back_brace_hb)-3][0];
+    a_tab_hb = atan( y_tab_hb / x_tab_hb );
+    back_brace_hb_tab = [
+        [0,0],
+        [0,tab_height],
+        [channel_offset-channel_thickness - (tab_height - sheet_thickness)/tan(a_tab_hb), tab_height],
+        [channel_offset-channel_thickness, sheet_thickness],
+        [channel_offset-channel_thickness, 0],
+    ];
+    echo( "2x", back_brace_hb_tab=back_brace_hb_tab );
+    
     color( [1,1,1] ) {
         for( x = [0, column_x] ) {
             translate([x+sheet_thickness,
@@ -45,6 +61,13 @@ module body() {
             rotate([90,0,-90])
             linear_extrude( height=sheet_thickness )
             polygon( points=back_brace_hb );
+            
+            translate([x+(x==0?+sheet_thickness*2:0),
+                base_width-sheet_thickness,
+                base_bottom])
+            rotate([90,0,-90])
+            linear_extrude( height=sheet_thickness )
+            polygon( points=back_brace_hb_tab );
         }
     }
     
@@ -64,6 +87,20 @@ module body() {
         [channel_offset-channel_thickness, 0],
     ];
     echo( "2x", back_brace_bb=back_brace_bb );
+    
+    x_max_bb = back_brace_bb[len(back_brace_bb)-1][0];
+    y_tab_bb = back_brace_bb[len(back_brace_bb)-3][1] - sheet_thickness;
+    x_tab_bb = x_max_bb - back_brace_bb[len(back_brace_bb)-3][0];
+    a_tab_bb = atan( y_tab_bb / x_tab_bb );
+    back_brace_bb_tab = [
+        [0,0],
+        [0,tab_height],
+        [channel_offset-channel_thickness - (tab_height - sheet_thickness)/tan(a_tab_bb), tab_height],
+        [channel_offset-channel_thickness, sheet_thickness],
+        [channel_offset-channel_thickness, 0],
+    ];
+    echo( "2x", back_brace_bb_tab=back_brace_bb_tab );
+    
     color( [1,1,1] ) {
         for( x = [base_length-sheet_thickness,base_length-clamp_width] ) {
             translate([x+sheet_thickness,
@@ -72,6 +109,14 @@ module body() {
             rotate([90,0,-90])
             linear_extrude( height=sheet_thickness )
             polygon( points=back_brace_bb );
+
+            translate([x+(x==base_length-clamp_width?+sheet_thickness*2:0),
+                base_width-sheet_thickness,
+                base_bottom])
+            rotate([90,0,-90])
+            linear_extrude( height=sheet_thickness )
+            polygon( points=back_brace_bb_tab );
+
         }
     }
     
