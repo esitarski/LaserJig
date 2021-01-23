@@ -29,8 +29,8 @@ module support() {
         support_brace_height
     ];
     
-    horizonal_braces = 8;
-    echo( "8x", width_brace_cube=width_brace_cube );
+    horizonal_braces = 6;
+    echo( "6x", width_brace_cube=width_brace_cube );
     
     width_brace_offset = (length_brace_cube[0] - sheet_thickness) / (horizonal_braces-1);
     
