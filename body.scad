@@ -28,6 +28,14 @@ module body() {
     translate( [0,base_width-sheet_thickness,base_bottom] )
     cube( back_cube );
     
+    // Add a stiffener for the back.
+    back_stiffener = [base_length-clamp_width-column_x, 80, sheet_thickness];
+    echo( back_stiffener=back_stiffener );
+    
+    color( [1,0,0] )
+    translate( [column_x, base_width - back_stiffener[1]-sheet_thickness, base_bottom] )
+    cube( back_stiffener );
+    
     // back braces
     // hb braces
     back_brace_hb_thickness = channel_offset/4;
