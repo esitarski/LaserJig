@@ -29,10 +29,11 @@ module body() {
     cube( back_cube );
     
     // Add a stiffener for the back.
-    back_stiffener = [base_length-clamp_width-column_x, 80, sheet_thickness];
+    back_stiffener_thickness = 80;
+    back_stiffener = [base_length-clamp_width-column_x, back_stiffener_thickness, sheet_thickness];
     echo( back_stiffener=back_stiffener );
     
-    color( [1,0,0] )
+    color( [.5,.5,.5] )
     translate( [column_x, base_width - back_stiffener[1]-sheet_thickness, base_bottom] )
     cube( back_stiffener );
     
@@ -80,6 +81,28 @@ module body() {
             linear_extrude( height=sheet_thickness )
             polygon( points=back_brace_hb_tab );
         }
+    }
+    
+    hb_brace_pad = [
+        sheet_thickness,
+        back_stiffener_thickness,
+        back_stiffener_thickness
+    ];
+    echo( hb_brace_pad=hb_brace_pad );
+    hb_brace_strut = [
+        sheet_thickness,
+        back_stiffener_thickness,
+        back_stiffener_thickness + tab_height,
+    ];
+    echo( hb_brace_strut=hb_brace_strut );
+    color( [1,0,0] ) {
+        translate( [sheet_thickness, base_width-sheet_thickness-back_stiffener_thickness,
+        base_bottom+tab_height] )
+        cube( hb_brace_pad );
+
+        translate( [sheet_thickness*2, base_width-sheet_thickness-back_stiffener_thickness,
+        base_bottom] )
+        cube( hb_brace_strut );
     }
     
     // bb braces
