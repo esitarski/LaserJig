@@ -12,14 +12,17 @@ module body() {
     // base
     base_cube = [base_length, base_width, sheet_thickness];
     echo( base_cube=base_cube );
-    
+        
     color( [1,0,0] )
     translate( [0,0,base_bottom-sheet_thickness] )
     cube( base_cube );
     
     // back
     back_cube = [base_length, sheet_thickness, back_height];
-    echo( back_cube=back_cube );
+    
+    // Split the back in half so it fits into a 4x8 sheet.
+    back_cube_split = [back_cube[0]/2, back_cube[1], back_cube[2]];
+    echo( "2x", back_cube_split=back_cube_split );
     
     color( [1,1,1] )
     translate( [0,base_width-sheet_thickness,base_bottom] )

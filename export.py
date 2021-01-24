@@ -10,7 +10,7 @@ cmd = ['openscad', 'main.scad', '-o', 'main.png']
 
 sheet_thickness = 0		# This comes from the scad file.
 
-board_height, board_width = 8*12*2.54, 4*12*2.54
+board_height, board_width = 8*12*25.4, 4*12*25.4
 
 count = defaultdict( int )
 polys = {}
@@ -130,7 +130,7 @@ dwg.save()
 # Create an svg file with a sheet in it for nesting.
 x_cur = y_cur = 0
 dwg = svgwrite.Drawing( 'LaserJigSheet.svg', profile='tiny' )
-to_poly_svg( dwg, 'sheet', cube_to_points((board_height, board_width, sheet_thickness)) )
+to_poly_svg( dwg, 'sheet', cube_to_points((board_width, board_height, sheet_thickness)) )
 for k,v in sorted( polys.items(), key=lambda e: approx_poly_area(e[1]), reverse=True ):
 	for c in range(count[k]):
 		to_poly_svg( dwg, '{}_{}'.format(k,c+1), v )
