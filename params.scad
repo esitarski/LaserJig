@@ -6,9 +6,9 @@ laser_origin_height=16;			// center of the laser beam
 laser_length=60;				// length of the laser (includes cable allowance).
 laser_spread_angle = 2*atan((110/2)/60);	// angle the laser spreads out from origin.
 
-laser_setback = 44.91*10;		// how much the laser is set back from the center of the bike.
-laser_position_z = 122.73*10;	// height of the laser center.
-laser_position_angle = 26.51;	// angle pointing down of the laser
+laser_setback        =  48.45*10;	// how much the laser is set back from the center of the bike.
+laser_position_z     = 119.26*10;	// height of the laser center.
+laser_position_angle =  24.51;		// angle the laser points down.
 
 laser_low = 50;
 laser_high=1350;

@@ -1,5 +1,7 @@
 include <params.scad>
 
+show_laser_lines = 0;
+
 laser_clearance = 10;   // Clearance around the laser modules.
 lasers_x = hb_85-laser_width/2-laser_clearance-sheet_thickness;
 lasers_margin = laser_width/2+laser_clearance+sheet_thickness;
@@ -24,8 +26,6 @@ back_height_over = 5;
 back_height=(laser_setback + channel_offset) * tan(laser_spread_angle/2 - laser_position_angle) + laser_position_z + back_height_over;
     
 channel_center = base_width - sheet_thickness + channel_offset;
-
-show_laser_lines = 0;
 
 module laser_clamp( p, back ) {
     laser_clearance = 10;
