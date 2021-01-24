@@ -117,7 +117,7 @@ def to_poly_svg( dwg, label, points ):
 		svg_points = [(y + x_cur, x_max - x + y_cur) for x, y in points]
 	else:
 		svg_points = [(x + x_cur, y_max - y + y_cur) for x, y in points]
-	dwg.add( dwg.polyline(points=svg_points, stroke='none', fill='blue') )
+	dwg.add( dwg.polyline(points=svg_points, stroke='black', fill='white') )
 	x_cur = max( x for x,y in svg_points ) + 20
 
 x_cur = y_cur = 0
