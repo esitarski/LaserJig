@@ -20,22 +20,16 @@ module body() {
     // back
     back_cube = [base_length, sheet_thickness, back_height];
     
-    // Split the back in half so it fits into a 4x8 sheet.
-    back_cube_split = [back_cube[0]/2, back_cube[1], back_cube[2]];
-    echo( "2x", back_cube_split=back_cube_split );
+    // Split the back in half horizontally so both parts can be cut from a 4x8 sheet.
+    back_1 = [back_cube[0], back_cube[1], back_cube[2]*0.75];
+    echo( back_1=back_1 );
+    
+    back_2 = [back_cube[0], back_cube[1], back_cube[2]*0.25];
+    echo( back_2=back_2 );
     
     color( [1,1,1] )
     translate( [0,base_width-sheet_thickness,base_bottom] )
     cube( back_cube );
-    
-    // Add a stiffener for the back.
-    back_stiffener_thickness = 80;
-    back_stiffener = [base_length-clamp_width-column_x, back_stiffener_thickness, sheet_thickness];
-    echo( back_stiffener=back_stiffener );
-    
-    color( [.5,.5,.5] )
-    translate( [column_x, base_width - back_stiffener[1]-sheet_thickness, base_bottom] )
-    cube( back_stiffener );
     
     // back braces
     // hb braces
@@ -83,18 +77,21 @@ module body() {
         }
     }
     
+    // hb braces struts.
+    back_stiffener_thickness = 80;
     hb_brace_pad = [
         sheet_thickness,
         back_stiffener_thickness,
         back_stiffener_thickness
     ];
-    echo( hb_brace_pad=hb_brace_pad );
+    echo( "2x", hb_brace_pad=hb_brace_pad );
     hb_brace_strut = [
         sheet_thickness,
         back_stiffener_thickness,
         back_stiffener_thickness + tab_height,
     ];
-    echo( hb_brace_strut=hb_brace_strut );
+    echo( "2x", hb_brace_strut=hb_brace_strut );
+    
     color( [1,0,0] ) {
         translate( [sheet_thickness, base_width-sheet_thickness-back_stiffener_thickness,
         base_bottom+tab_height] )
@@ -103,6 +100,15 @@ module body() {
         translate( [sheet_thickness*2, base_width-sheet_thickness-back_stiffener_thickness,
         base_bottom] )
         cube( hb_brace_strut );
+        
+        translate( [column_x-sheet_thickness, base_width-sheet_thickness-back_stiffener_thickness,
+        base_bottom+tab_height] )
+        cube( hb_brace_pad );
+
+        translate( [column_x-sheet_thickness*2, base_width-sheet_thickness-back_stiffener_thickness,
+        base_bottom] )
+        cube( hb_brace_strut );
+
     }
     
     // bb braces
