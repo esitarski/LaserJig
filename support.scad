@@ -1,6 +1,6 @@
 include <body.scad>
 
-support_x = castor_plate/2 + castor_radius * cos(45);
+support_x = round(castor_plate/2 + castor_radius * cos(45));
 support_brace_width_offset = support_x + 10;
 support_brace_length_offset = support_brace_width_offset;
 support_brace_height = castor_height-44;  // ground clearance.
@@ -40,6 +40,8 @@ module support() {
             support_brace_width_offset+2*sheet_thickness,
             castor_height-support_brace_height] )
         cube( width_brace_cube );
+        
+        echo( "support_brace_x", support_brace_length_offset+i*width_brace_offset );
     }
     
     // Castors
