@@ -1,8 +1,9 @@
 include <body.scad>
 
-support_brace_width_offset = castor_radius + castor_plate/2 + 10;
+support_x = castor_plate/2 + castor_radius * cos(45);
+support_brace_width_offset = support_x + 10;
 support_brace_length_offset = support_brace_width_offset;
-support_brace_height = castor_height - 30;
+support_brace_height = castor_height - 30;  // ground clearance.
 
 module support() {
     // Length braces.  Note we double-up on the front.
@@ -42,8 +43,8 @@ module support() {
     }
     
     // Castors
-    for( x = [castor_plate, base_length-castor_plate] ) {
-        for( y = [castor_plate, base_width-castor_plate] ) {
+    for( x = [castor_plate/2, base_length-castor_plate/2] ) {
+        for( y = [castor_plate/2, base_width-castor_plate/2] ) {
             translate( [x, y, castor_height/2] )
             cylinder(h = castor_height, r=castor_radius, center = true);
         }
