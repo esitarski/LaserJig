@@ -46,7 +46,7 @@ class MyHandler( xml.sax.handler.ContentHandler ):
 		a = self.rotate * math.pi / 180
 		cos_a = math.cos( a )
 		sin_a = math.sin( a )
-		return tuple( (x*cos_a - y*sin_a, x*sin_a + y*cos_a) for x, y in points)
+		return tuple( (x*cos_a - y*sin_a, x*sin_a + y*cos_a) for x, y in points )
 	
 	def startElement(self, name, attrs):
 		if name == 'g':

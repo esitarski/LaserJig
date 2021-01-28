@@ -32,9 +32,9 @@ bb_0=hb_75+750;					// position of bottom bracket line
 bb_5=bb_0+50;					// position of bottom bracket +5cm line
 
 // castor dimensions.
-castor_height = 82;
-castor_radius = 80;
-castor_plate = 36;
+castor_height = 71;
+castor_radius = 51 + 10;		// includes 10mm to allow for wheel thickness.
+castor_plate = 55;
 
 // bottom of the jig from the floor.
 base_bottom = sheet_thickness + castor_height;
