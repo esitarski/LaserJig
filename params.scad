@@ -31,10 +31,10 @@ hb_75=hb_80+50;					// position of handlebar 75cm line
 bb_0=hb_75+750;					// position of bottom bracket line
 bb_5=bb_0+50;					// position of bottom bracket +5cm line
 
-// castor dimensions.
-castor_height = 71;
-castor_radius = 51;
-castor_plate = 55;
+// castor dimensions GD-60F (2" wheel, leveling castor).
+castor_height = 82;
+castor_radius = 61;
+castor_plate = 73;
 
 // bottom of the jig from the floor.
 base_bottom = sheet_thickness + castor_height;
