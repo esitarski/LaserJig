@@ -1,16 +1,18 @@
 # LaserJig
 
-![alt text](https://github.com/esitarski/LaserJig/blob/main/LaserJig.png?raw=true)
+![LaserJig Rendering](https://github.com/esitarski/LaserJig/blob/main/LaserJig.png?raw=true)
 
 Bike Jig using lasers.  Designed to be used in a fixed location (i.e. a velodrome).
 It is heavy and non-portable.
 The intent is for riders to check their own bikes.  As such, the jig must be "bomb-proof" as it will be subject to
-use and abuse while remaining extremely accurate.  Lasers are used as they are accurate and contactless.
+daily abuse while remaining extremely accurate.  Lasers are used for the measuring as they are accurate and contactless.
 
-The OpenSCAD files contain "echo" statements that print out the polygons for the plywood parts.
-The polygon (and cubes) are extracted from OpenSCAD via "export.py".  These polygons are then written to dxf and svg files.
+The OpenSCAD files contain "echo" statements that output the polygons for the plywood parts.
+The shapes are extracted from OpenSCAD via "export.py" and written to dxf and svg files.
 
-The dxf or svg files can be processed by a CNC router that cuts the parts out of 18mm plywood sheet.
+The LaserJigSheet.svg file is further processed using [Deepnest.io](//https://deepnest.io//) to nest the parts (10mm separation).
+The 3-sheet layout is then processed to create .dxf files that can be processed by a CNC router.
+
 Assembly is relatively straight-forward with biscuit joinery.  The design has a number of assembly-friendly features including lips and
 alignment points to make it easier to line up the parts at assembly.
 The laser modules are held in place with adjustable clamps which make it possible to fine-tune the accuracy during assembly.
