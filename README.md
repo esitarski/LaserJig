@@ -1,4 +1,7 @@
 # LaserJig
+
+![alt text](https://github.com/esitarski/LaserJig/blob/main/LaserJig.png?raw=true)
+
 Bike Jig using lasers.  Designed to be used in a fixed location (i.e. a velodrome).
 It is heavy and non-portable.
 The intent is for riders to check their own bikes.  As such, the jig must be "bomb-proof" as it will be subject to
