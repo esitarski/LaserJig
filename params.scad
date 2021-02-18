@@ -15,7 +15,7 @@ laser_high=1350;
 
 laser_y = laser_length;
 
-wheel_width=30;					// maximum width of a wheel
+wheel_width=34;					// maximum width of a wheel
 wheel_height=670;				// height of a 700CC wheel.
 
 handlebar_width_max = 500;
