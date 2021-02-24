@@ -119,17 +119,28 @@ module lasers() {
             cube( lasers_end );
  
             //------------------------------------------
-            lasers_spacer = [sheet_thickness, lasers_width-sheet_thickness, lasers_height-sheet_thickness*2];
-            echo( "5x", lasers_spacer=lasers_spacer );
+            laser_side_start = lasers_margin + (hb_75 - hb_85) + laser_width/2 + laser_clearance;
+            laser_side_end = lasers_length - lasers_margin - (bb_5-bb_0) - laser_width/2 - laser_clearance;
+            laser_side = [laser_side_end-laser_side_start, sheet_thickness, lasers_height-sheet_thickness*2];
+            echo( "2x", laser_side=laser_side );
             
-            spacer_start = lasers_margin + (hb_75 - hb_85) + laser_width/2 + laser_clearance;
-            spacer_end = lasers_length - lasers_margin - (bb_5-bb_0) - laser_width/2 - laser_clearance - sheet_thickness;
-            spacer_inc = (spacer_end - spacer_start) / 4;
-            echo( lasers_length=lasers_length, spacer_start=spacer_start, spacer_end=spacer_end, spacer_inc=spacer_inc );
-            for (i = [0:4]) {
-                translate( [spacer_start + i * spacer_inc,laser_clearance,sheet_thickness] )
-                cube( lasers_spacer );
-            }
+            translate( [laser_side_start, 0, sheet_thickness] )
+            cube( laser_side );
+            translate( [laser_side_start, lasers_width-sheet_thickness, sheet_thickness] )
+            cube( laser_side );
+            
+            //------------------------------------------
+            //lasers_spacer = [sheet_thickness, lasers_width-sheet_thickness, lasers_height-sheet_thickness*2];
+            //echo( "5x", lasers_spacer=lasers_spacer );
+            
+            //spacer_start = lasers_margin + (hb_75 - hb_85) + laser_width/2 + laser_clearance;
+            //spacer_end = lasers_length - lasers_margin - (bb_5-bb_0) - laser_width/2 - laser_clearance - sheet_thickness;
+            //spacer_inc = (spacer_end - spacer_start) / 4;
+            //echo( lasers_length=lasers_length, spacer_start=spacer_start, spacer_end=spacer_end, spacer_inc=spacer_inc );
+            //for (i = [0:4]) {
+            //    translate( [spacer_start + i * spacer_inc,laser_clearance,sheet_thickness] )
+            //    cube( lasers_spacer );
+            //}
         }
     }
 }

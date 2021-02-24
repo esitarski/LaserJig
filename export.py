@@ -144,7 +144,6 @@ shutil.rmtree( target_dir, ignore_errors=True )
 
 os.mkdir( target_dir )
 for k,v in sorted( polys.items(), key=lambda e: approx_poly_area(e[1]), reverse=True ):
-	print( approx_poly_area(v) )
 	for c in range(count[k]):
 		fname = '{}_{}.svg'.format(k, c+1) if count[k] > 1 else '{}.svg'.format(k)
 		dwg = svgwrite.Drawing( os.path.join(target_dir, fname), profile='tiny' )
@@ -152,3 +151,12 @@ for k,v in sorted( polys.items(), key=lambda e: approx_poly_area(e[1]), reverse=
 		to_poly_svg( dwg, '{}_{}'.format(k,c+1), v )
 		print( k, c, count[k], fname )
 		dwg.save()
+
+#-----------------------------------------------------------------------
+# Output the parts list.
+#
+with open('LaserJigPartsList.txt', 'w') as f:
+	for k,v in sorted( polys.items(), key=lambda e: approx_poly_area(e[1]), reverse=True ):
+		f.write( '{}: {}\n'.format( k, count[k] ) )
+		for p in v:
+			f.write( '    {:8.2f},{:8.2f}\n'.format(*p) )
