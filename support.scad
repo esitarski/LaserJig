@@ -42,7 +42,7 @@ module support() {
             castor_height-support_brace_height] )
         cube( width_brace_cube );
         
-        echo( "support_brace_x", support_brace_length_offset+i*width_brace_offset );
+        echo( "support_brace_x", i+1, support_brace_length_offset+i*width_brace_offset );
     }
     
     // Castors

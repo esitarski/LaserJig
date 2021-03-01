@@ -1,6 +1,6 @@
 include <params.scad>
 
-show_laser_lines = 0;
+show_laser_lines = 1;
 
 laser_clearance = 10;   // Clearance around the laser modules.
 lasers_x = hb_85-laser_width/2-laser_clearance-sheet_thickness;
@@ -122,6 +122,8 @@ module lasers() {
             laser_side_start = lasers_margin + (hb_75 - hb_85) + laser_width/2 + laser_clearance;
             laser_side_end = lasers_length - lasers_margin - (bb_5-bb_0) - laser_width/2 - laser_clearance;
             laser_side = [laser_side_end-laser_side_start, sheet_thickness, lasers_height-sheet_thickness*2];
+            
+            echo( laser_side_start=laser_side_start );
             echo( "2x", laser_side=laser_side );
             
             translate( [laser_side_start, 0, sheet_thickness] )

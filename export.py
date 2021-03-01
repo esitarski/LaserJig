@@ -1,6 +1,7 @@
 import os
 import re
 import shutil
+import operator
 from collections import defaultdict
 from subprocess import Popen, DEVNULL, PIPE
 import ezdxf
@@ -149,14 +150,14 @@ for k,v in sorted( polys.items(), key=lambda e: approx_poly_area(e[1]), reverse=
 		dwg = svgwrite.Drawing( os.path.join(target_dir, fname), profile='tiny' )
 		x_cur = y_cur = 0
 		to_poly_svg( dwg, '{}_{}'.format(k,c+1), v )
-		print( k, c, count[k], fname )
+		# print( k, c, count[k], fname )
 		dwg.save()
 
 #-----------------------------------------------------------------------
 # Output the parts list.
 #
 with open('LaserJigPartsList.txt', 'w') as f:
-	for k,v in sorted( polys.items(), key=lambda e: approx_poly_area(e[1]), reverse=True ):
+	for k,v in sorted( polys.items(), key=operator.itemgetter(0) ):
 		f.write( '{}: {}\n'.format( k, count[k] ) )
 		for p in v:
 			f.write( '    {:8.2f},{:8.2f}\n'.format(*p) )

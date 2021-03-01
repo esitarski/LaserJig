@@ -20,6 +20,8 @@ module column() {
         column_laser_x = laser_reveal + hb_75-hb_85 + laser_clearance + sheet_thickness;
         echo( column_laser_x=column_laser_x );
         
+        echo( hb_85=hb_85 );
+        
         column_support_break_y = (lasers_effective_width + laser_setback)/2.5;
         column_support_break_z = .25*column_height;
         column_support_z2 = column_height-abs(lasers_back_yz[1]-lasers_front_yz[1]);
