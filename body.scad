@@ -8,6 +8,43 @@ module wheel( x, y, z ) {
     cylinder(h=wheel_width, d=wheel_height, center="true");
 }
 
+module tandem_extension( p, front ) {
+    te_length = 600;
+    te_width = channel_thickness * 2;
+    te_base = [te_length, te_width, sheet_thickness];
+    echo( te_base=te_base );
+    te_rail = [te_length, channel_thickness-wheel_width/2, sheet_thickness];
+    echo( "2x", te_rail=te_rail );
+    te_under = [150, te_width, sheet_thickness];
+    echo( te_under=te_under );
+    te_over = [120, channel_thickness-wheel_width/2, sheet_thickness];
+    echo( "2x", te_over=te_over );
+    
+    translate( p ) {
+        mirror( [front ? 1 : 0, 0, 0] ) {
+            cube( te_base );
+            
+            translate( [0, 0, sheet_thickness] ) {
+                cube( te_rail );
+                translate( [-20, 0, sheet_thickness] )
+                cube( te_over );
+            }
+            
+            translate( [0, te_width-te_rail[1], sheet_thickness] ) {
+                cube( te_rail );
+                translate( [-20, 0, sheet_thickness] )
+                cube( te_over );
+            }
+
+            translate( [-50, 0, -sheet_thickness] )
+            cube( te_under );
+            
+            translate( [te_length-50, te_width/2, -p[2]/2])
+            cylinder( h=p[2], r=30, center=true );
+        }
+    }
+}
+
 module body() {
     // base
     base_cube = [base_length, base_width, sheet_thickness];
@@ -26,6 +63,10 @@ module body() {
     
     back_2 = [back_cube[0], back_cube[1], back_cube[2]*0.25];
     echo( back_2=back_2 );
+    
+    color( [1,1,.5] )
+    translate( [0,base_width-sheet_thickness-5,base_bottom] )
+    cube( back_2 );
     
     color( [1,1,1] )
     translate( [0,base_width-sheet_thickness,base_bottom] )
@@ -230,6 +271,10 @@ module body() {
     translate( [bb_5, base_width-sheet_thickness-1, base_bottom] )
     color( [0,1,0] )
     cube( [150, 1, back_height] );
+    
+    // tandem extension
+    tandem_extension( [base_length,base_width-sheet_thickness-channel_offset-channel_thickness,base_bottom-sheet_thickness], false );
+    tandem_extension( [0,base_width-sheet_thickness-channel_offset-channel_thickness,base_bottom-sheet_thickness], true );
 }
 
 body();

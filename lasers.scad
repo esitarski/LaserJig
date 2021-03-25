@@ -27,47 +27,6 @@ back_height=(laser_setback + channel_offset) * tan(laser_spread_angle/2 - laser_
     
 channel_center = base_width - sheet_thickness + channel_offset;
 
-module laser_clamp( p, back ) {
-    laser_clearance = 10;
-    clamp_thickness = laser_clearance - 1;
-    foot_length = 14 + clamp_thickness;
-    border = 2.25;
-    pad = 10;
-    overlap = 0.25;
-    
-    laser_clamp_points = [
-        [0,0],
-        [foot_length, 0],
-        [foot_length, laser_height + border],
-        [foot_length + border + laser_width/2 - pad/2, laser_height + border],
-        [foot_length + border + laser_width/2 - pad/2, laser_height - overlap],
-        [foot_length + border + laser_width/2 + pad/2, laser_height - overlap],
-        [foot_length + border + laser_width/2 + pad/2, laser_height + clamp_thickness],
-        [foot_length - border - clamp_thickness + border, laser_height + clamp_thickness],
-        [foot_length - border - clamp_thickness + border, sheet_thickness],    
-        [0, sheet_thickness],    
-    ];
-    echo( laser_clamp_points=laser_clamp_points );
-    pad_middle = laser_clamp_points[5][0] - pad/2;
-    
-    translate( p ) {
-        color( [.9,.9,0] )
-        if( back ) {
-            translate( [0,10,0] )
-            translate( [-pad_middle,sheet_thickness,0] )
-            rotate( [90,0,0] )
-            linear_extrude( height=sheet_thickness )
-            polygon( laser_clamp_points );
-        }
-        else {
-            translate( [laser_clamp_points[3][0]+laser_width/2-pad/2,laser_length-sheet_thickness,0] )
-            rotate( [90,0,180] )
-            linear_extrude( height=sheet_thickness )
-            polygon( laser_clamp_points );
-        }
-    }
-}
-
 module lasers() {
     translate( [lasers_x, sheet_thickness+abs(lasers_back_yz[0]), base_bottom+laser_position_z] )
     rotate( [-laser_position_angle, 0, 0] )
@@ -81,8 +40,6 @@ module lasers() {
                 translate( [lp, 0, 0] )
                 color( [1,.5,0] )
                 cube( laser );
-                
-                laser_clamp( [lp+laser_width/2, 0, 0], lp==lps[1] || lp==lps[2] || lp==lps[4] );
             }
         }
         
