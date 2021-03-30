@@ -1,6 +1,6 @@
 # LaserJig
 
-![LaserJig Rendering](https://github.com/esitarski/LaserJig/blob/main/LaserJig.png?raw=true)
+![LaserJig Rendering](https://github.com/esitarski/LaserJig/blob/main/main.png?raw=true)
 
 Bike Jig using lasers.  Designed to be used in a fixed location (i.e. a velodrome).
 It is heavy and non-portable.
