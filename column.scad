@@ -6,41 +6,100 @@ column_height = laser_position_z+lasers_back_yz[1];
 
 column_x = (bb_0+hb_75-column_width)/2;
 
+module horizontal_laser( x, p_bottom, p_top ) {
+    track = [3/8*25, 3/4*25.4, 24*25.4];
+    laser = [65, 70, 75];
+    bolt_xy = [65/2, 40];
+    laser_height = 45;
+    
+    rail_length = 130;
+    shuttle_rail = [track[0], sheet_thickness, rail_length];
+    shuttle_top = [sheet_thickness, sheet_thickness*2+track[1], shuttle_rail[2]];
+    shelf_border = 10;
+    shuttle_shelf = [laser[0]+sheet_thickness+track[0], laser[1]+shuttle_top[1]+shelf_border, sheet_thickness];
+    
+    dx = p_top[0] - p_bottom[0];
+    dy = p_top[1] - p_bottom[1];
+    angle = atan2( dy, dx ) - 90;
+    
+    fraction = 0.22;
+    p_bottom_new = [p_bottom[0] + dx*fraction, p_bottom[1] + dy*fraction];
+    
+    echo( angle=angle );
+    
+    echo( "2x", shuttle_rail=shuttle_rail );
+    echo( shuttle_top=shuttle_top );
+    echo( shuttle_shelf=shuttle_shelf );
+        
+    translate( [x,p_bottom_new[0],base_bottom+p_bottom_new[1]] ) {
+        rotate( [angle,0,0] ) {
+            color( [1,0,0] )
+            translate( [0,-sheet_thickness, 0] )
+            cube( track );
+            
+            //shuttle_height = track[2]/2;
+            shuttle_height = track[2] - shuttle_rail[2];
+            
+            color( [.5,.5,.5] )
+            translate( [0,0, shuttle_height] )
+            cube( shuttle_rail );
+                
+            color( [.5,.5,.5] )
+            translate( [0, -track[1] - sheet_thickness, shuttle_height] )
+            cube( shuttle_rail );
+
+            color( [1,1,1] )
+            translate( [track[0], -track[1] - sheet_thickness, shuttle_height] )
+            cube( shuttle_top );
+
+            color( [0,.5,0] )
+            translate( [0, -track[1] - sheet_thickness, shuttle_height+shuttle_rail[2]-sheet_thickness-8] ) {
+                rotate( [-angle,0,0] ) {
+                    cube( shuttle_shelf );
+                    translate( [(shuttle_shelf[0]-laser[0])/2,shuttle_shelf[1]-laser[1]-shelf_border,sheet_thickness] )
+                    cube( laser );
+                }
+            }
+        };
+    };
+}
+
 module column() {
-    translate( [0, 0, base_bottom] ) {
         // Add a lip on the column front for alignment.
-        column_front = [column_width, sheet_thickness, column_height+2];
-        
-        echo( column_front=column_front );
-        
-        echo( column_x=column_x );
-        translate( [column_x,0,0] )
-        cube( column_front );
-        
-        column_laser_x = laser_reveal + hb_75-hb_85 + laser_clearance + sheet_thickness;
-        echo( column_laser_x=column_laser_x );
-        
-        echo( hb_85=hb_85 );
-        
-        column_support_break_y = (lasers_effective_width + laser_setback)/2.5;
-        column_support_break_z = .25*column_height;
-        column_support_z2 = column_height-abs(lasers_back_yz[1]-lasers_front_yz[1]);
-        column_support = [
-            [0,0],
-            [0,column_height],
-            [lasers_effective_width,column_support_z2],
-            [column_support_break_y,column_support_break_z],
-            [lasers_effective_width + laser_setback-channel_thickness,sheet_thickness],
-            [lasers_effective_width + laser_setback-channel_thickness,0]
-        ];
-        echo( "3x", column_support=column_support );
-        
+    column_front = [column_width, sheet_thickness, column_height+2];
+    
+    echo( column_front=column_front );
+    
+    column_laser_x = laser_reveal + hb_75-hb_85 + laser_clearance + sheet_thickness;
+    echo( column_laser_x=column_laser_x );
+    
+    echo( hb_85=hb_85 );
+    
+    column_support_break_y = (lasers_effective_width + laser_setback)/2.5;
+    column_support_break_z = .25*column_height;
+    column_support_z2 = column_height-abs(lasers_back_yz[1]-lasers_front_yz[1]);
+    column_support = [
+        [0,0],
+        [0,column_height],
+        [lasers_effective_width,column_support_z2],
+        [column_support_break_y,column_support_break_z],
+        [lasers_effective_width + laser_setback-channel_thickness,sheet_thickness],
+        [lasers_effective_width + laser_setback-channel_thickness,0]
+    ];
+    echo( "3x", column_support=column_support );
+       
+    //---------------------------------------------------------------
+    translate( [0, 0, base_bottom] ) {
         // Compute the tabs to attach the supports to the base.
         x_max = column_support[len(column_support)-1][0];
         y_tab = column_support[len(column_support)-3][1] - sheet_thickness;
         x_tab = x_max - column_support[len(column_support)-3][0];
         a_tab = atan( y_tab / x_tab );
         
+        echo( column_x=column_x );
+        translate( [column_x,0,0] )
+        cube( column_front );
+    
         col_suppport_tab = [
             [0,0],
             [0,tab_height],
@@ -130,7 +189,9 @@ module column() {
             cube( electronics_cover_block );
         }
     }
+    
+    horizontal_laser( column_x+column_width, column_support[3], column_support[2] );
 }
 
-color( [1,1,1] )
+// color( [1,1,1] )
 column();

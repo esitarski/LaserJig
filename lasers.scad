@@ -1,6 +1,6 @@
 include <params.scad>
 
-show_laser_lines = 1;
+show_laser_lines = 0;
 
 laser_clearance = 10;   // Clearance around the laser modules.
 lasers_x = hb_85-laser_width/2-laser_clearance-sheet_thickness;
