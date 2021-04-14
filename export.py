@@ -35,7 +35,10 @@ for line in err.decode().split('\n'):
 		line = line[5:].strip()
 		if line.startswith('"'):
 			repeat, line = line.split('", ', 2)
-			repeat = int( re.sub('[^0-9]', '', repeat) )
+			try:
+				repeat = int( re.sub('[^0-9]', '', repeat) )
+			except ValueError:
+				continue
 		else:
 			repeat = 1
 		try:

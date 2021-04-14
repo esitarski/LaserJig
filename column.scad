@@ -25,7 +25,8 @@ module horizontal_laser( x, p_bottom, p_top ) {
     fraction = 0.22;
     p_bottom_new = [p_bottom[0] + dx*fraction, p_bottom[1] + dy*fraction];
     
-    echo( angle=angle );
+    echo( "shuttle_angle=", angle );
+    echo( "shuttle_height=", p_bottom_new[0] );
     
     echo( "2x", shuttle_rail=shuttle_rail );
     echo( shuttle_top=shuttle_top );
