@@ -1,14 +1,16 @@
 sheet_thickness=18;				// thickness of the plywood sheet.
+milling_bit=10;                 // size of the milling it (3/8 ~= 10mm)
 
 laser_width=20;					// width of the laser
 laser_height=27;				// height of the laser
 laser_origin_height=16;			// center of the laser beam
 laser_length=60;				// length of the laser (includes cable allowance).
 laser_spread_angle = 2*atan((110/2)/60);	// angle the laser spreads out from origin.
+plug_diameter = 34;
 
-laser_setback        =  48.45*10;	// how much the laser is set back from the center of the bike.
-laser_position_z     = 119.26*10;	// height of the laser center.
-laser_position_angle =  24.51;		// angle the laser points down.
+laser_setback        =  48.45*10-75;	// how much the laser is set back from the center of the bike.
+laser_position_z     = 119.26*10-90;	// height of the laser center.
+laser_position_angle =  29;		// angle the laser points down.
 
 laser_low = 50;
 laser_high=1350;
@@ -25,6 +27,7 @@ channel_thickness = 50;
 base_length=1500;
 
 hb_85=50+laser_width/2;			// position of handlebar 85cm line (centered on laser)
+hb_83=hb_85+20;					// position of handlebar 83cm line
 hb_80=hb_85+50;					// position of handlebar 80cm line
 hb_75=hb_80+50;					// position of handlebar 75cm line
 

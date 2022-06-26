@@ -22,22 +22,22 @@ module tandem_extension( p, front ) {
     
     translate( p ) {
         mirror( [front ? 1 : 0, 0, 0] ) {
-            cube( te_base );
+            cutCube( te_base );
             
             translate( [0, 0, sheet_thickness] ) {
-                cube( te_rail );
+                cutCube( te_rail );
                 translate( [-20, 0, sheet_thickness] )
-                cube( te_over );
+                cutCube( te_over );
             }
             
             translate( [0, te_width-te_rail[1], sheet_thickness] ) {
-                cube( te_rail );
+                cutCube( te_rail );
                 translate( [-20, 0, sheet_thickness] )
-                cube( te_over );
+                cutCube( te_over );
             }
 
             translate( [-50, 0, -sheet_thickness] )
-            cube( te_under );
+            cutCube( te_under );
             
             translate( [te_length-50, te_width/2, -p[2]/2])
             cylinder( h=p[2], r=30, center=true );
@@ -52,7 +52,7 @@ module body() {
         
     color( [1,0,0] )
     translate( [0,0,base_bottom-sheet_thickness] )
-    cube( base_cube );
+    cutCube( base_cube, circles_remove=[[plug_diameter/2, 645, 155]] );
     
     // back
     back_cube = [base_length, sheet_thickness, back_height];
@@ -64,22 +64,25 @@ module body() {
     back_2 = [back_cube[0], back_cube[1], back_cube[2]*0.25];
     echo( back_2=back_2 );
     
-    color( [1,1,.5] )
-    translate( [0,base_width-sheet_thickness-5,base_bottom] )
-    cube( back_2 );
-    
-    color( [1,1,1] )
-    translate( [0,base_width-sheet_thickness,base_bottom] )
-    cube( back_cube );
+    translate( [0, base_width-sheet_thickness-3, base_bottom] ) {
+        color( [1,1,.5] )
+        cutCube( back_2 );
+        
+        translate( [0, 3, back_2[2]] ) {
+            color( [1,1,1] )
+            cutCube( back_1 );
+        }
+    }
     
     // back braces
     // hb braces
     back_brace_hb_thickness = channel_offset/4;
-    back_brace_hb_y1 = wheel_height*2/3;
-    back_brace_hb_y2 = wheel_height*1/4;
+    back_brace_hb_y1 = wheel_height*0.73;
+    back_brace_hb_y2 = wheel_height*0.15;
     back_brace_hb = [
         [0,0],
-        [0,wheel_height-100+20],
+        [0,wheel_height-80],
+        [sheet_thickness,wheel_height-80],
         [back_brace_hb_thickness,back_brace_hb_y1],
         [back_brace_hb_thickness,back_brace_hb_y2],
         [channel_offset-channel_thickness, sheet_thickness],
@@ -106,50 +109,14 @@ module body() {
                 base_width-sheet_thickness,
                 base_bottom])
             rotate([90,0,-90])
-            linear_extrude( height=sheet_thickness )
-            polygon( points=back_brace_hb );
+            cutPoints( back_brace_hb );
             
             translate([x+(x==0?+sheet_thickness*2:0),
                 base_width-sheet_thickness,
                 base_bottom])
             rotate([90,0,-90])
-            linear_extrude( height=sheet_thickness )
-            polygon( points=back_brace_hb_tab );
+           cutPoints( back_brace_hb_tab );
         }
-    }
-    
-    // hb braces struts.
-    back_stiffener_thickness = 80;
-    hb_brace_pad = [
-        sheet_thickness,
-        back_stiffener_thickness,
-        back_stiffener_thickness
-    ];
-    echo( "2x", hb_brace_pad=hb_brace_pad );
-    hb_brace_strut = [
-        sheet_thickness,
-        back_stiffener_thickness,
-        back_stiffener_thickness + tab_height,
-    ];
-    echo( "2x", hb_brace_strut=hb_brace_strut );
-    
-    color( [1,0,0] ) {
-        translate( [sheet_thickness, base_width-sheet_thickness-back_stiffener_thickness,
-        base_bottom+tab_height] )
-        cube( hb_brace_pad );
-
-        translate( [sheet_thickness*2, base_width-sheet_thickness-back_stiffener_thickness,
-        base_bottom] )
-        cube( hb_brace_strut );
-        
-        translate( [column_x-sheet_thickness, base_width-sheet_thickness-back_stiffener_thickness,
-        base_bottom+tab_height] )
-        cube( hb_brace_pad );
-
-        translate( [column_x-sheet_thickness*2, base_width-sheet_thickness-back_stiffener_thickness,
-        base_bottom] )
-        cube( hb_brace_strut );
-
     }
     
     // bb braces
@@ -162,8 +129,9 @@ module body() {
         [0,0],
         [0,wheel_height],
         [clamp_length/2-sheet_thickness,wheel_height],
-        [back_brace_bb_thickness,wheel_height*3/4],
-        [back_brace_bb_thickness,wheel_height*1/4],
+        [clamp_length/2-sheet_thickness,wheel_height-50-sheet_thickness],
+        [back_brace_bb_thickness,wheel_height*0.85],
+        [back_brace_bb_thickness,wheel_height*0.15],
         [channel_offset-channel_thickness, sheet_thickness],
         [channel_offset-channel_thickness, 0],
     ];
@@ -188,15 +156,13 @@ module body() {
                 base_width-sheet_thickness,
                 base_bottom])
             rotate([90,0,-90])
-            linear_extrude( height=sheet_thickness )
-            polygon( points=back_brace_bb );
+            cutPoints( back_brace_bb );
 
             translate([x+(x==base_length-clamp_width?+sheet_thickness*2:0),
                 base_width-sheet_thickness,
                 base_bottom])
             rotate([90,0,-90])
-            linear_extrude( height=sheet_thickness )
-            polygon( points=back_brace_bb_tab );
+            cutPoints( back_brace_bb_tab );
 
         }
     }
@@ -207,10 +173,10 @@ module body() {
     
     color( [1,1,1] ) {
         translate( [0, base_width-sheet_thickness-channel_offset-channel_thickness, base_bottom] )
-        cube( channel_cube );
+        cutCube( channel_cube );
         
         translate( [0, base_width-sheet_thickness-channel_offset+wheel_width/2, base_bottom] )
-        cube( channel_cube );
+        cutCube( channel_cube );
     }
     
     //-------------------------------------------------------
@@ -221,36 +187,62 @@ module body() {
         bike_clamp_support = [clamp_width, clamp_length/2, sheet_thickness];
         echo( bike_clamp_support=bike_clamp_support );
         translate( [base_length-clamp_width, clamp_y+clamp_length/2, clamp_height] )
-        cube( bike_clamp_support );
+        cutCube( bike_clamp_support );
         
         //-----------------------------------
         bike_clamp = [clamp_width, clamp_length/2, sheet_thickness];
         echo( bike_clamp=bike_clamp );
         
         translate( [base_length-clamp_width, clamp_y, clamp_height] )
-        cube( bike_clamp );
+        cutCube( bike_clamp );
         
         //-----------------------------------
-       bike_clamp_channel = [clamp_width, channel_thickness, sheet_thickness];
+        bike_clamp_channel = [clamp_width, channel_thickness, sheet_thickness];
         echo( "2x", bike_clamp_channel=bike_clamp_channel );
         
         // Bike clamp channels.
         translate( [base_length-clamp_width,clamp_y,clamp_height-sheet_thickness] )
-        cube( bike_clamp_channel );
+        cutCube( bike_clamp_channel );
         
         translate( [base_length-clamp_width,clamp_y+channel_thickness+wheel_width,clamp_height-sheet_thickness] )
-        cube( bike_clamp_channel );
+        cutCube( bike_clamp_channel );
+    }
 
+    color([0,.7,0,1]) {
+        // Bike clamp tabs.
+        bike_clamp_tab = [sheet_thickness, channel_offset-wheel_width/2-8, 50];
+        echo( "2x", bike_clamp_tab=bike_clamp_tab );
+        
+        translate([base_length-sheet_thickness*2,base_width-bike_clamp_tab[1]-sheet_thickness,clamp_height-bike_clamp_tab[2]-sheet_thickness])
+        rotate( [3,0,00] )
+        cutCube( bike_clamp_tab );
+        
+        translate([base_length-clamp_width+sheet_thickness,base_width-bike_clamp_tab[1]-sheet_thickness,clamp_height-bike_clamp_tab[2]-sheet_thickness])
+        rotate( [3,0,00] )
+        cutCube( bike_clamp_tab );
+        
     };
     
-    // colored indicators.
+    // Brace tab
+    tab_block =  [sheet_thickness,40,40];
+    echo( tab_block=tab_block );
+    color([0,1,1]) {
+        translate( [base_length-clamp_width, base_width-tab_block[1]-back_brace_bb_tab[2][0]+1.25*sheet_thickness, clamp_height-tab_block[2]-sheet_thickness] )
+        cutCube( [sheet_thickness,40,40] );
+    }
+    
+    // colored background.
     translate( [0, base_width-sheet_thickness-1, base_bottom] )
     color( [1,0,0] )
     cube( [hb_85-0, 1, back_height] );
     
     translate( [hb_85, base_width-sheet_thickness-1, base_bottom] )
+    color( [1,.5,0] )
+    cube( [hb_83-hb_85, 1, back_height] );
+
+    translate( [hb_83, base_width-sheet_thickness-1, base_bottom] )
     color( [1,.75,0] )
-    cube( [hb_80-hb_85, 1, back_height] );
+    cube( [hb_80-hb_83, 1, back_height] );
 
     translate( [hb_80, base_width-sheet_thickness-1, base_bottom] )
     color( [1,1,0] )
@@ -272,9 +264,14 @@ module body() {
     color( [0,1,0] )
     cube( [150, 1, back_height] );
     
-    // tandem extension
+    // tandem extensions
     tandem_extension( [base_length,base_width-sheet_thickness-channel_offset-channel_thickness,base_bottom-sheet_thickness], false );
     tandem_extension( [0,base_width-sheet_thickness-channel_offset-channel_thickness,base_bottom-sheet_thickness], true );
+    
+    // Seat elevation indicator.
+    //color( [0,0,1,.25] )
+    //translate( [0, base_width-channel_offset-channel_thickness/2, base_bottom] )
+    //cube( [base_length, sheet_thickness, 1200] );
 }
 
 body();

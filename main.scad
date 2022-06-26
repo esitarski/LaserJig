@@ -15,9 +15,11 @@ module bike_tt( x, y, z ) {
                 import("TT bike2012 - tt1-brs-1.STL");
                 color([150/255,75/255,0])
                 import("TT bike2012 - tt1 saddle-1.STL");
-                color([.5,.5,.5]) {
-                import("TT bike2012 - crankspiderminimalleft-1.STL");
-                import("TT bike2012 - crankspiderminimal 2-1.STL");
+                translate( [1113,-420.5,0] )
+                rotate( [0,0,100] )
+                color([.75,.75,.75]) {
+                    import("TT bike2012 - crankspiderminimalleft-1.STL");
+                    import("TT bike2012 - crankspiderminimal 2-1.STL");
                 }
             }
         }

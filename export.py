@@ -7,6 +7,7 @@ from subprocess import Popen, DEVNULL, PIPE
 import ezdxf
 import svgwrite
 
+# Create a 3-d rendering.  This also extracts the shapes from the "echo" statements.
 cmd = ['openscad', 'main.scad', '-o', 'main.png']
 
 sheet_thickness = 0		# This comes from the scad file.
@@ -68,7 +69,10 @@ for label, points in polys.items():
 def approx_poly_area( points ):
 	return max(x for x,y in points) * max(y for x,y in points)
 
+'''
 #-----------------------------------------------------------------------
+# Save all polygons in one dxf format.
+#
 doc = ezdxf.new()
 doc.units = 4	# mm
 
@@ -83,9 +87,6 @@ def to_poly_dxf( msp, label, points ):
 	x_cur = max( x for x,y in dxf_points ) + 20
 	return p
 
-#-----------------------------------------------------------------------
-# Save all polygons in one dxf format.
-#
 for k,v in sorted( polys.items(), key=lambda e: approx_poly_area(e[1]), reverse=True ):
 	for c in range(count[k]):
 		to_poly_dxf( msp, '{}_{}'.format(k,c+1), v )
@@ -155,11 +156,12 @@ for k,v in sorted( polys.items(), key=lambda e: approx_poly_area(e[1]), reverse=
 		to_poly_svg( dwg, '{}_{}'.format(k,c+1), v )
 		# print( k, c, count[k], fname )
 		dwg.save()
+'''
 
 #-----------------------------------------------------------------------
-# Output the parts list.
+# Output the labeled parts list.
 #
-with open('LaserJigPartsList.txt', 'w') as f:
+with open('main-2d-parts-list.txt', 'w') as f:
 	for k,v in sorted( polys.items(), key=operator.itemgetter(0) ):
 		f.write( '{}: {}\n'.format( k, count[k] ) )
 		for p in v:
