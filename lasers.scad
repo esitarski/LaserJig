@@ -1,7 +1,7 @@
 include <params.scad>
 include <thickness.scad>
 
-show_laser_lines = false;
+show_laser_lines = true;
 
 laser_clearance = 10;   // Clearance around the laser modules.
 lasers_x = hb_85-laser_width/2-laser_clearance-sheet_thickness;
@@ -36,7 +36,7 @@ module lasers() {
         laser_start = sheet_thickness+laser_clearance;
         laser = [laser_width, laser_length, laser_height];
         translate( [laser_start, 0, sheet_thickness] ) {
-            lps = [hb_85-hb_85, hb_83-hb_85, hb_80-hb_83, hb_75-hb_85, bb_0-hb_85, bb_5-hb_85];
+            lps = [hb_85-hb_85, hb_83-hb_85, hb_80-hb_85, hb_75-hb_85, bb_0-hb_85, bb_5-hb_85];
             for( lp = lps ) {
                 translate( [lp, 0, 0] )
                 color( [1,.5,0] )
@@ -119,7 +119,7 @@ module laser_lines() {
     x = lasers_x+sheet_thickness+laser_clearance+laser_width/2;
 	color( [0,1,0,.05] ) {
         translate( [x, y, laser_position_z + base_bottom] )
-		for( lp = [hb_85-hb_85, hb_83-hb_85, hb_80-hb_83, hb_75-hb_85, bb_0-hb_85, bb_5-hb_85] ) {
+		for( lp = [hb_85-hb_85, hb_83-hb_85, hb_80-hb_85, hb_75-hb_85, bb_0-hb_85, bb_5-hb_85] ) {
 			translate( [lp, 0, 0] )
 			rotate( a=[0,270,0] )
 			linear_extrude( height=1 )

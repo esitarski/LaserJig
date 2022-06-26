@@ -70,6 +70,5 @@ color([.5,.5,.5]) {
         translate([240+text_space,max_height*2-10,thickness-engrave_depth]) linear_extrude(height=engrave_depth ) text("24cm", size=font_size );
         translate([300,max_height*2,thickness]) cube([1, 24, engrave_depth*2], center=true);
         translate([300+text_space,max_height*2-10,thickness-engrave_depth]) linear_extrude(height=engrave_depth ) text("30cm", size=font_size );
-
     }
 }

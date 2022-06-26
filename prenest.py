@@ -5,13 +5,13 @@ import subprocess
 version = '2'
 
 svg_fname = 'main-2d-{}.svg'.format( version )
-dxt_fname = 'main-2d-{}.dxt'.format( version )
+dxf_fname = 'main-2d-{}.dxf'.format( version )
 svg_prenest_fname = 'main-2d-prenest-{}.svg'.format( version )
 
 get_svg = True
 if get_svg:
 	subprocess.run([sys.executable, "convert-2d.py", "main.scad", svg_fname])
-	subprocess.run([sys.executable, "convert-2d.py", "main.scad", dxt_fname])
+	subprocess.run([sys.executable, "convert-2d.py", "main.scad", dxf_fname])
 
 subprocess.run([sys.executable, "export.py"])
 
