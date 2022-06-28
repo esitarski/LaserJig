@@ -70,5 +70,10 @@ color([.5,.5,.5]) {
         translate([max_length-240+text_space,max_height*2-10,thickness-engrave_depth]) linear_extrude(height=engrave_depth ) text("24cm", size=font_size );
         translate([max_length-300,max_height*2,thickness]) cube([1, 24, engrave_depth*2], center=true);
         translate([max_length-300+text_space,max_height*2-10,thickness-engrave_depth]) linear_extrude(height=engrave_depth ) text("30cm", size=font_size );
+        
+        
+        // Credits
+        translate([support_length+cutout_radius*2+10, max_height-font_size-text_space, thickness-engrave_depth]) linear_extrude(height=engrave_depth ) text("edward.sitarski@gmail.com 2022", size=font_size );
+
     }
 }
