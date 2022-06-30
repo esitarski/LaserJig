@@ -7,6 +7,19 @@ from subprocess import Popen, DEVNULL, PIPE
 import ezdxf
 import svgwrite
 
+# Create the 2-d SVG files for the HandlebarGauge
+
+for name in ('HandlebarGauge', 'HandlebarGaugeManual'):
+	fname = '{}.scad'.format( name )
+	for draw in ('engraving', 'cutting'):
+		fname_svg = '{}-{}.svg'.format( name, draw )
+		cmd = ['openscad', fname, '-D', 'draw="{}"'.format(draw), '-o', fname_svg]
+		print( cmd )
+		proc = Popen( cmd, stdout=PIPE, stderr=PIPE )
+		out, err = proc.communicate()
+		if out or err:
+			print( out, err )
+
 # Create a 3-d rendering.  This also extracts the shapes from the "echo" statements.
 cmd = ['openscad', 'main.scad', '-o', 'main.png']
 
