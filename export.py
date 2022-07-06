@@ -11,7 +11,7 @@ import svgwrite
 
 for name in ('HandlebarGauge', 'HandlebarGaugeManual'):
 	fname = '{}.scad'.format( name )
-	for draw in ('engraving', 'cutting'):
+	for draw in ('scoring', 'cutting'):
 		fname_svg = '{}-{}.svg'.format( name, draw )
 		cmd = ['openscad', fname, '-D', 'draw="{}"'.format(draw), '-o', fname_svg]
 		print( cmd )

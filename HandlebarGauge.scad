@@ -22,7 +22,7 @@ gauge = [
     [max_length-support_length-cutout_radius*2,0]
 ];
 
-module engraving() {
+module scoring() {
     // Top measuring lines.
     translate([0,max_height-line_width/2]) {
         translate([0, 120]) square( [line_length, line_width] );
@@ -83,11 +83,11 @@ module outline() {
 }
 
 //draw="cutting";
-//draw="engraving";
+//draw="scoring";
 draw="shape";
-if( draw == "engraving" )
+if( draw == "scoring" )
     color( [0,0,0] )
-    engraving();
+    scoring();
 else if( draw == "cutting" )
     color( [.5,.5,.5] )
     outline();
@@ -95,7 +95,7 @@ else {
     color( [.5,.5,.5] )
     outline();
     color( [0,0,0] )
-    engraving();
+    scoring();
     /*
     color([.5,.5,.5]) {
         difference() {
@@ -104,7 +104,7 @@ else {
             
             translate( [0,0,thickness-engrave_depth] )
             linear_extrude( height=engrave_depth )
-            engraving();
+            scoring();
         }
     }
     */
