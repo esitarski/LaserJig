@@ -1,8 +1,8 @@
 <?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="500mm" height="280mm" viewBox="0 -280 500 280" xmlns="http://www.w3.org/2000/svg" version="1.1">
-<title>OpenSCAD Model</title>
-<path d="
+		<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+		<svg width="500mm" height="280mm" viewBox="0 -280 500 280" xmlns="http://www.w3.org/2000/svg" version="1.1">
+		<title>OpenSCAD Model Nested</title>
+		<path d="
 M 500,-280 L 0,-280 L 0,-140 L 50,-140 L 50.1084,-144.416 L 50.4334,-148.822
  L 50.9741,-153.206 L 51.7293,-157.558 L 52.6972,-161.868 L 53.8754,-166.126 L 55.261,-170.32 L 56.8508,-174.441
  L 58.641,-178.48 L 60.6271,-182.426 L 62.8044,-186.269 L 65.1677,-190.001 L 67.7113,-193.613 L 70.429,-197.095

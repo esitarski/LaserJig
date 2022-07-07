@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 import shutil
 import operator
 from collections import defaultdict
@@ -7,8 +8,69 @@ from subprocess import Popen, DEVNULL, PIPE
 import ezdxf
 import svgwrite
 
-# Create the 2-d SVG files for the HandlebarGauge
+def squares_to_lines( svg_fname ):
+	print( 'converting squares to lines...' )
+	with open(svg_fname) as f:
+		svg = f.read()
+		width = int(re.search( 'width="([0-9]+)mm', svg ).group(1))
+		height = int(re.search( 'height="([0-9]+)mm', svg ).group(1))
+		path = re.search( '<path d="\n([^"]*)"', svg ).group(1)
+		
+	# Convert indicator lines from squares to lines.
+	shapes = []
+	lines = []
+	for s in path.split( 'z' ):
+		s = s.strip()
+		if not s:
+			continue
+		if s.count('L') == 3:
+			# This is a square.  Parse the coordinates.
+			shape = re.sub('[^-0-9,.]+',' ',s)
+			#print( shape )
+			coords = [tuple([float(cc) for cc in coord.split(',')]) for coord in shape.split()]
+			#print( coords )
+			
+			upper_left = coords[2]
+			lower_right = coords[0]
 
+			# Check that the square is the right thickness to be a line.
+			if not( abs(lower_right[0] - upper_left[0]) == 0.5 or abs(lower_right[1] - upper_left[1]) == 0.5 ):
+				shapes.append( s )
+				continue
+			
+			if abs(lower_right[0] - upper_left[0]) > abs(lower_right[1] - upper_left[1]):
+				# Horizontal line
+				x1 = upper_left[0]
+				x2 = lower_right[0]
+				y1 = y2 = (lower_right[1] + upper_left[1]) / 2
+			else:
+				# Vertical line.
+				y1 = lower_right[1]
+				y2 = upper_left[1]
+				x1 = x2 = (lower_right[0] + upper_left[0]) / 2
+			
+			lines.append( '<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="black" stroke-width="0.5" />'.format( x1=x1, y1=y1, x2=x2, y2=y2 ) )
+		else:
+			shapes.append( s )
+			
+	shapes.append( '' )	
+	path = ' z\n'.join( shapes )
+	
+	lines.append( '' )
+
+	with open(svg_fname, 'w') as f:
+		header = '''<?xml version="1.0" standalone="no"?>
+		<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+		<svg width="{width}mm" height="{height}mm" viewBox="0 -{height} {width} {height}" xmlns="http://www.w3.org/2000/svg" version="1.1">
+		<title>OpenSCAD Model Nested</title>
+		<path d="\n'''.format( width=width, height=height )
+		f.write( header )
+		f.write( path )
+		f.write( '" stroke="black" fill="lightgray" stroke-width="0.5"/>\n' )
+		f.write( '\n'.join(lines) )
+		f.write( '</svg>' )
+
+# Create the 2-d SVG files for the HandlebarGauge
 for name in ('HandlebarGauge', 'HandlebarGaugeManual'):
 	fname = '{}.scad'.format( name )
 	for draw in ('scoring', 'cutting'):
@@ -19,6 +81,8 @@ for name in ('HandlebarGauge', 'HandlebarGaugeManual'):
 		out, err = proc.communicate()
 		if out or err:
 			print( out, err )
+		
+		squares_to_lines( fname_svg )
 
 # Create a 3-d rendering.  This also extracts the shapes from the "echo" statements.
 cmd = ['openscad', 'main.scad', '-o', 'main.png']
