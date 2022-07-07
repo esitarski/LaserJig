@@ -14,7 +14,7 @@ def squares_to_lines( svg_fname ):
 	# This is a bit hacky ;)
 	#
 	# Look for rectangles that have a width or height of 0.5.
-	# Convert those to svg lines instead of rectangles.
+	# Convert those to svg lines instead of shapes.
 	#
 	with open(svg_fname) as f:
 		svg = f.read()
@@ -30,7 +30,7 @@ def squares_to_lines( svg_fname ):
 		if not s:
 			continue
 		if s.count('L') == 3:
-			# This is a square.  Parse the coordinates.
+			# This is a rectangle.  Parse the coordinates.
 			shape = re.sub('[^-0-9,.]+',' ',s)
 			#print( shape )
 			coords = [tuple([float(cc) for cc in coord.split(',')]) for coord in shape.split()]
@@ -39,7 +39,7 @@ def squares_to_lines( svg_fname ):
 			upper_left = coords[2]
 			lower_right = coords[0]
 
-			# Check that the square is the right thickness to be a line.
+			# Check that the rectangle is the right thickness to be a line.
 			if not( abs(lower_right[0] - upper_left[0]) == 0.5 or abs(lower_right[1] - upper_left[1]) == 0.5 ):
 				shapes.append( s )
 				continue
