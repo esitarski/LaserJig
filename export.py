@@ -10,6 +10,12 @@ import svgwrite
 
 def squares_to_lines( svg_fname ):
 	print( 'converting squares to lines...' )
+	#-------------------------------------------------------------------
+	# This is a bit hacky ;)
+	#
+	# Look for rectangles that have a width or height of 0.5.
+	# Convert those to svg lines instead of rectangles.
+	#
 	with open(svg_fname) as f:
 		svg = f.read()
 		width = int(re.search( 'width="([0-9]+)mm', svg ).group(1))
