@@ -22,7 +22,7 @@ gauge = [
     [support_length+cutout_radius*2,0]
 ];
 
-show_text = false;
+show_text = true;
 
 module scoring() {
     // Top measuring lines.
