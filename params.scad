@@ -52,6 +52,6 @@ function rotate_point(p,a) = [p[0]*cos(a) - p[1]*sin(a), p[0]*sin(a) + p[1]*cos(
 echo( sheet_thickness=sheet_thickness );
 
 // Global flag indicating to color the parts and background.
-color_parts = true;
+color_parts = false;
 
 
