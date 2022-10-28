@@ -40,5 +40,5 @@ module man( x ) {
     import("James.STL" );
 }
 
-bike_tt(bb_0-719-$t*160,base_width-sheet_thickness-channel_offset,base_bottom);
+bike_tt(bb_0-719-$t*16,base_width-sheet_thickness-channel_offset,base_bottom);
 //man();

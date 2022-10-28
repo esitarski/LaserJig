@@ -17,12 +17,12 @@ laser_high=1350;
 
 laser_y = laser_length;
 
-wheel_width=34;					// maximum width of a wheel
+wheel_width=34;					// maximum width of a wheel (space between the wheel channels).
 wheel_height=670;				// height of a 700CC wheel.
 
 handlebar_width_max = 500;
 channel_offset = handlebar_width_max / 2 + 20;
-channel_thickness = 50;
+channel_thickness = 50;         // Thickness of the channels on either side of the week_width.
 
 base_length=1500;
 
@@ -50,5 +50,8 @@ function rotate_point(p,a) = [p[0]*cos(a) - p[1]*sin(a), p[0]*sin(a) + p[1]*cos(
 
 // output the sheet thickness so export.py knows how to created the files.
 echo( sheet_thickness=sheet_thickness );
+
+// Global flag indicating to color the parts and background.
+color_parts = true;
 
 

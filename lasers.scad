@@ -117,6 +117,7 @@ module laser_lines() {
 	];
     y = base_width - sheet_thickness - channel_offset - laser_setback;  
     x = lasers_x+sheet_thickness+laser_clearance+laser_width/2;
+    echo( laser_85=x ); // Position of 85cm laser from left edge.
 	color( [0,1,0,.05] ) {
         translate( [x, y, laser_position_z + base_bottom] )
 		for( lp = [hb_85-hb_85, hb_83-hb_85, hb_80-hb_85, hb_75-hb_85, bb_0-hb_85, bb_5-hb_85] ) {

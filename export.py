@@ -8,6 +8,25 @@ from subprocess import Popen, DEVNULL, PIPE
 import ezdxf
 import svgwrite
 
+def is_line( coords ):
+	if len(coords) != 4:
+		return False
+	
+	upper_left = coords[2]
+	lower_right = coords[0]
+
+	# Check that the rectangle is the right thickness to be a line.
+	if not( abs(lower_right[0] - upper_left[0]) == 0.5 or abs(lower_right[1] - upper_left[1]) == 0.5 ):
+		return False
+
+	# Check that all the lines are co-linear.
+	return (
+		coords[0][1] == coords[1][1] and
+		coords[1][0] == coords[2][0] and
+		coords[2][1] == coords[3][1] and
+		coords[3][0] == coords[0][0]
+	)
+
 def squares_to_lines( svg_fname ):
 	print( 'converting squares to lines...' )
 	#-------------------------------------------------------------------
@@ -36,14 +55,14 @@ def squares_to_lines( svg_fname ):
 			coords = [tuple([float(cc) for cc in coord.split(',')]) for coord in shape.split()]
 			#print( coords )
 			
-			upper_left = coords[2]
-			lower_right = coords[0]
-
 			# Check that the rectangle is the right thickness to be a line.
-			if not( abs(lower_right[0] - upper_left[0]) == 0.5 or abs(lower_right[1] - upper_left[1]) == 0.5 ):
+			if not is_line(coords):
 				shapes.append( s )
 				continue
 			
+			upper_left = coords[2]
+			lower_right = coords[0]
+
 			if abs(lower_right[0] - upper_left[0]) > abs(lower_right[1] - upper_left[1]):
 				# Horizontal line
 				x1 = upper_left[0]

@@ -40,10 +40,10 @@ module horizontal_laser( x, p_bottom, p_top ) {
     
     dx = p_top[0] - p_bottom[0];
     dy = p_top[1] - p_bottom[1];
-    angle = atan2( dy, dx ) - 90;
+    angle = 0;
     
-    fraction = 0.06;
-    p_bottom_new = [p_bottom[0] + dx*fraction, p_bottom[1] + dy*fraction];
+    fraction = 0.0;
+    p_bottom_new = [p_bottom[0] + dx*fraction-140, p_bottom[1] + dy*fraction-25];
     
     echo( "shuttle_angle=", angle );
     echo( "shuttle_height=", p_bottom_new[0] );
@@ -56,7 +56,7 @@ module horizontal_laser( x, p_bottom, p_top ) {
         
     translate( [x,p_bottom_new[0],base_bottom+p_bottom_new[1]] ) {
         rotate( [angle,0,0] ) {
-            color( [1,0,0] )
+            color( [.25,.25,1] )
             translate( [0,-sheet_thickness, 0] )
             cube( track );
             
@@ -76,29 +76,24 @@ module horizontal_laser( x, p_bottom, p_top ) {
             cutCube( shuttle_top );
             //cube( shuttle_top );
 
-            translate( [sheet_thickness+track[0], -track[1] - sheet_thickness, shuttle_height+shuttle_rail[2]-sheet_thickness-8] ) {
+            translate( [track[0], -track[1] - sheet_thickness, shuttle_height+shuttle_rail[2]] ) {
                 rotate( [-angle,0,0] ) {
-                    color( [0,.5,0] )
+                    color( [1,1,1] )
                     cutCube( shuttle_shelf );
                     
-                    translate([0,shuttle_shelf[1]-sheet_thickness, sheet_thickness]) {
-                        color( [0,.5,0] )
-                        cutCube( shuttle_extension );
+                    color( [0,0,0] )
+                    translate( [sheet_thickness, shuttle_shelf[0]/2-10, -shuttle_height/8] )
+                    rotate( [0,90,0] )
+                    cylinder( h=40, r=20, center=true );
+
+                    translate( [laser_shelf[0]/2,laser_shelf[1]/2, sheet_thickness+laser[2]/2] ) {
+                        rotate( [0,0,17] ) {
+                            color( [0,.75,1] )
+                            cube( laser, center=true );
                         
-                        translate([0,0,shuttle_extension[2]]) {
-                            color( [0,.5,0] )
-                            cutCube( laser_shelf );
-                            
-                            translate( [laser_shelf[0]/2,laser_shelf[1]/2, sheet_thickness+laser[2]/2] ) {
-                                rotate( [0,0,17] ) {
-                                    color( [0,.5,0] )
-                                    cube( laser, center=true );
-                                
-                                    translate([0, laser[1]/2, 0]) {
-                                        if( show_laser_lines ) {
-                                            horizontal_laser_line();
-                                        }
-                                    }
+                            translate([0, laser[1]/2, laser[2]*.25]) {
+                                if(show_laser_lines ) {
+                                    horizontal_laser_line();
                                 }
                             }
                         }

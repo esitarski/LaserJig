@@ -231,38 +231,39 @@ module body() {
         cutCube( [sheet_thickness,40,40] );
     }
     
-    // colored background.
-    translate( [0, base_width-sheet_thickness-1, base_bottom] )
-    color( [1,0,0] )
-    cube( [hb_85-0, 1, back_height] );
-    
-    translate( [hb_85, base_width-sheet_thickness-1, base_bottom] )
-    color( [1,.5,0] )
-    cube( [hb_83-hb_85, 1, back_height] );
+    if( color_parts ) {
+        translate( [0, base_width-sheet_thickness-1, base_bottom] )
+        color( [1,0,0] )
+        cube( [hb_85-0, 1, back_height] );
+        
+        translate( [hb_85, base_width-sheet_thickness-1, base_bottom] )
+        color( [1,.5,0] )
+        cube( [hb_83-hb_85, 1, back_height] );
 
-    translate( [hb_83, base_width-sheet_thickness-1, base_bottom] )
-    color( [1,.75,0] )
-    cube( [hb_80-hb_83, 1, back_height] );
+        translate( [hb_83, base_width-sheet_thickness-1, base_bottom] )
+        color( [1,.75,0] )
+        cube( [hb_80-hb_83, 1, back_height] );
 
-    translate( [hb_80, base_width-sheet_thickness-1, base_bottom] )
-    color( [1,1,0] )
-    cube( [hb_75-hb_80, 1, back_height] );
+        translate( [hb_80, base_width-sheet_thickness-1, base_bottom] )
+        color( [1,1,0] )
+        cube( [hb_75-hb_80, 1, back_height] );
 
-    translate( [hb_75, base_width-sheet_thickness-1, base_bottom] )
-    color( [0,1,0] )
-    cube( [150, 1, back_height] );
+        translate( [hb_75, base_width-sheet_thickness-1, base_bottom] )
+        color( [0,1,0] )
+        cube( [150, 1, back_height] );
 
-    translate( [bb_0-150, base_width-sheet_thickness-1, base_bottom] )
-    color( [1,0,0] )
-    cube( [150, 1, back_height] );
-    
-    translate( [bb_0, base_width-sheet_thickness-1, base_bottom] )
-    color( [1,1,0] )
-    cube( [bb_5-bb_0, 1, back_height] );
-    
-    translate( [bb_5, base_width-sheet_thickness-1, base_bottom] )
-    color( [0,1,0] )
-    cube( [150, 1, back_height] );
+        translate( [bb_0-150, base_width-sheet_thickness-1, base_bottom] )
+        color( [1,0,0] )
+        cube( [150, 1, back_height] );
+        
+        translate( [bb_0, base_width-sheet_thickness-1, base_bottom] )
+        color( [1,1,0] )
+        cube( [bb_5-bb_0, 1, back_height] );
+        
+        translate( [bb_5, base_width-sheet_thickness-1, base_bottom] )
+        color( [0,1,0] )
+        cube( [150, 1, back_height] );
+    }
     
     // tandem extensions
     tandem_extension( [base_length,base_width-sheet_thickness-channel_offset-channel_thickness,base_bottom-sheet_thickness], false );
