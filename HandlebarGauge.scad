@@ -70,6 +70,10 @@ module scoring() {
     if( show_text ) translate([240-35,max_height*2-text_space-font_size]) text("240mm", size=font_size );
     translate([300-line_width/2,max_height*2-indicator_line_length]) square([line_width, indicator_line_length] );
     if( show_text ) translate([300-35,max_height*2-text_space-font_size]) text("300mm", size=font_size );
+
+    // Min handlebar width.
+    translate([350-line_width/2,max_height*2-indicator_line_length]) square([line_width, indicator_line_length] );
+    if( show_text ) translate([350-35,max_height*2-text_space-font_size]) text("350mm", size=font_size );
     
     // Credits
     if( show_text ) translate([120, max_height-font_size-text_space]) text("edward.sitarski@gmail.com 2022", size=font_size );
